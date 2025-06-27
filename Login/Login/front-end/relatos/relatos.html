@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enviar Relato</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f4ff; color: #1e40af; }
+    label, select, textarea, button { display: block; width: 100%; margin-bottom: 10px; }
+    textarea { height: 100px; }
+    button { background: #3b82f6; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 6px; }
+    button:disabled { background: #93c5fd; cursor: not-allowed; }
+    #msg { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Enviar Relato</h1>
+  <label for="sala">Selecione a sala:</label>
+  <select id="sala">
+    <option value="">-- Selecione a sala --</option>
+    <option value="sala1">Sala 1</option>
+    <option value="sala2">Sala 2</option>
+    <option value="sala3">Sala 3</option>
+  </select>
+
+  <label for="relato">Descreva seu problema aqui:</label>
+  <textarea id="relato" placeholder="Digite seu relato..."></textarea>
+
+  <button id="btnEnviar">Enviar</button>
+  <div id="msg"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdRiK0hYONV-R65FQqzOZxfQHYjB9ke88",
+      authDomain: "hypecore-cfdfe.firebaseapp.com",
+      projectId: "hypecore-cfdfe",
+      storageBucket: "hypecore-cfdfe.appspot.com",
+      messagingSenderId: "871447742092",
+      appId: "1:871447742092:web:1fdef3e490d46ed0f71da9",
+      measurementId: "G-MQ3965G9RV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const salaSelect = document.getElementById('sala');
+    const relatoInput = document.getElementById('relato');
+    const btnEnviar = document.getElementById('btnEnviar');
+    const msgDiv = document.getElementById('msg');
+
+    btnEnviar.addEventListener('click', async () => {
+      const sala = salaSelect.value;
+      const texto = relatoInput.value.trim();
+
+      if (!sala) {
+        msgDiv.textContent = "Por favor, selecione uma sala.";
+        msgDiv.style.color = 'red';
+        return;
+      }
+
+      if (!texto) {
+        msgDiv.textContent = "Por favor, escreva um relato antes de enviar.";
+        msgDiv.style.color = 'red';
+        return;
+      }
+
+      btnEnviar.disabled = true;
+      msgDiv.textContent = "Enviando...";
+      msgDiv.style.color = 'black';
+
+      try {
+        // Garantir que a sala existe
+        await setDoc(doc(db, "salas", sala), { criadaEm: serverTimestamp() }, { merge: true });
+
+        // Adicionar relato dentro da sala
+        await addDoc(collection(db, `salas/${sala}/relatos`), {
+          mensagem: texto,
+          data: serverTimestamp()
+        });
+
+        msgDiv.textContent = "Relato enviado com sucesso!";
+        msgDiv.style.color = 'green';
+        relatoInput.value = "";
+        salaSelect.value = "";
+      } catch (error) {
+        console.error("Erro ao enviar relato:", error);
+        msgDiv.textContent = "Erro ao enviar relato. Tente novamente.";
+        msgDiv.style.color = "red";
+      }
+
+      btnEnviar.disabled = false;
+    });
+  </script>
+</body>
+</html>

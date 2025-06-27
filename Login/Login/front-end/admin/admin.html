@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Admin - Relatos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
+      color: #1e40af;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    #relatos-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .relato {
+      background: white;
+      padding: 15px;
+      border-left: 5px solid #3b82f6;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .data {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .mensagem {
+      font-size: 16px;
+      color: #111827;
+    }
+    button.excluir-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📩 Painel Admin - Relatos por Sala</h1>
+
+  <label for="salaSelect">Selecione a sala:</label>
+  <select id="salaSelect">
+    <option value="">-- Carregando salas --</option>
+  </select>
+
+  <div id="relatos-container">Selecione uma sala para ver os relatos.</div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdRiK0hYONV-R65FQqzOZxfQHYjB9ke88",
+      authDomain: "hypecore-cfdfe.firebaseapp.com",
+      projectId: "hypecore-cfdfe",
+      storageBucket: "hypecore-cfdfe.appspot.com",
+      messagingSenderId: "871447742092",
+      appId: "1:871447742092:web:1fdef3e490d46ed0f71da9",
+      measurementId: "G-MQ3965G9RV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const salaSelect = document.getElementById('salaSelect');
+    const relatosContainer = document.getElementById('relatos-container');
+
+    // Função para carregar salas
+    async function carregarSalas() {
+      const salasCol = collection(db, "salas");
+      const snapshot = await getDocs(salasCol);
+
+      salaSelect.innerHTML = '<option value="">-- Selecione uma sala --</option>';
+
+      if (snapshot.empty) {
+        salaSelect.innerHTML = '<option value="">Nenhuma sala encontrada</option>';
+        relatosContainer.textContent = "Nenhuma sala cadastrada.";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const option = document.createElement('option');
+        option.value = doc.id;
+        option.textContent = doc.id;
+        salaSelect.appendChild(option);
+      });
+    }
+
+    // Função para mostrar relatos da sala selecionada
+    function mostrarRelatos(sala) {
+      relatosContainer.textContent = "Carregando relatos...";
+      if (!sala) {
+        relatosContainer.textContent = "Selecione uma sala para ver os relatos.";
+        return;
+      }
+
+      const relatosCol = collection(db, `salas/${sala}/relatos`);
+      const q = query(relatosCol, orderBy("data", "desc"));
+
+      // Escuta em tempo real os relatos da sala
+      onSnapshot(q, (snapshot) => {
+        relatosContainer.innerHTML = "";
+
+        if (snapshot.empty) {
+          relatosContainer.textContent = "Nenhum relato nesta sala.";
+          return;
+        }
+
+        snapshot.forEach(doc => {
+          const relato = doc.data();
+          const div = document.createElement('div');
+          div.classList.add('relato');
+
+          const data = relato.data ? relato.data.toDate().toLocaleString() : "Data indisponível";
+
+          div.innerHTML = `
+            <div class="data">${data}</div>
+            <div class="mensagem">${relato.mensagem}</div>
+          `;
+
+          // Botão para excluir relato
+          const btnExcluir = document.createElement('button');
+          btnExcluir.textContent = "Excluir";
+          btnExcluir.classList.add('excluir-btn');
+          btnExcluir.onclick = async () => {
+            if (confirm("Quer mesmo excluir este relato?")) {
+              try {
+                await deleteDoc(doc(db, `salas/${sala}/relatos/${doc.id}`));
+              } catch (error) {
+                alert("Erro ao excluir relato.");
+                console.error(error);
+              }
+            }
+          };
+
+          div.appendChild(btnExcluir);
+          relatosContainer.appendChild(div);
+        });
+      });
+    }
+
+    salaSelect.addEventListener('change', () => {
+      mostrarRelatos(salaSelect.value);
+    });
+
+    carregarSalas();
+  </script>
+</body>
+</html>

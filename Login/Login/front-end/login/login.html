@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Central de Comunicados</h1>
+    <p>Entre para acessar o portal</p>
+    <form onsubmit="return login(event)">
+      <input type="email" id="email" placeholder="E-mail" required />
+      <input type="password" id="senha" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <button type="button" onclick="loginComGoogle()" class="google-button">
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+  Entrar com Google
+</button>
+    </form>
+    <p class="login-footer">Ainda não tem conta? <a href="../cadastro/cadastro.html">Cadastre-se</a></p>
+    <p class="login-footer">Esqueceu a senha? <a href="../recupera/recuperar-senha.html">Esqueceu Senha</a>
+  </div>
+
+  <!-- INÍCIO DO SCRIPT DE LOGIN COM FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAdRiK0hYONV-R65FQqzOZxfQHYjB9ke88",
+  authDomain: "hypecore-cfdfe.firebaseapp.com",
+  projectId: "hypecore-cfdfe",
+  storageBucket: "hypecore-cfdfe.firebasestorage.app",
+  messagingSenderId: "871447742092",
+  appId: "1:871447742092:web:1fdef3e490d46ed0f71da9",
+  measurementId: "G-MQ3965G9RV"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Login com email e senha
+window.login = function(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  signInWithEmailAndPassword(auth, email, senha)
+    .then((userCredential) => {
+      alert("Login realizado com sucesso!");
+      window.location.href = "../inicial/inicial.html";
+    })
+    .catch((error) => {
+      alert("Erro no login: " + error.message);
+    });
+};
+
+// Login com Google
+window.loginComGoogle = function() {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      alert("Login com Google realizado com sucesso!");
+      window.location.href = "../inicial/inicial.html";
+    })
+    .catch((error) => {
+      alert("Erro no login com Google: " + error.message);
+    });
+};
+  </script>
+  <!-- FIM DO SCRIPT -->
+</body>
+</html>

@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0052cc, #3399ff); /* azul escuro para azul claro */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #003366; /* azul escuro */
+}
+
+.container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.login-footer {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #4a5a70;
+}
+
+.login-footer a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-footer a:hover {
+  color: #004080;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #004080;
+  margin-bottom: 12px;
+  user-select: none;
+}
+
+p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+input[type="email"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #3399ff;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  color: #003366;
+}
+
+input[type="email"]:focus {
+  outline: none;
+  border-color: #0052cc;
+  background-color: #e6f0ff;
+}
+
+button {
+  margin-top: 20px;
+  padding: 14px 0;
+  width: 100%;
+  background-color: #0052cc;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #003d99;
+  box-shadow: 0 8px 20px rgba(0, 86, 179, 0.6);
+}
+
+
+.message {
+  margin-top: 18px;
+  font-size: 1rem;
+  color: #004080;
+  min-height: 24px;
+}
+.voltar-btn {
+  margin-top: 25px;
+  background: none;
+  color: #007bff;           /* azul mais vibrante */
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}

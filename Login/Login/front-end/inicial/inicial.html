@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reclamações | HypeCore</title>
+    <link rel="stylesheet" href="tst.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <nav class="sidebar">
+        <img src="Logo2.png" alt="Logo da HypeCore" class="logo" />
+        <a href="#" id="vagasLink" class="active">📋 Ver Reclamações</a>
+        <a href="#" id="relatosLink">📝 Fazer Comunicados</a>
+        <div class="qr-container">
+        <h2 class="section-title">Acesso ao Whatsapp de Vagas</h2>
+        <img src="qrcode2.png.jpeg" alt="QR Code">
+        </div>
+        <button id="adminBtn" style="display:none;">Admin</button>
+    </nav>
+        <!-- Visualizar Comunicados -->
+        <div id="viewSection">
+            <header class="header-container">
+                <h1>📋 Comunicados de Hoje</h1>
+                <div class="search-relatos-container">
+                    <input type="text" id="search-input" placeholder="Pesquisar comunicados..." />
+                </div>
+                <p class="subtitulo">Confira as reclamações mais recentes atualizadas automaticamente</p>
+            </header>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalComplaints">0</div>
+                    <div class="stat-label">Total de Reclamações</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todayComplaints">0</div>
+                    <div class="stat-label">Hoje</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="resolvedComplaints">0</div>
+                    <div class="stat-label">Resolvidas</div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="reclamacoes-container" id="reclamacoesContainer">
+                    <div class="loading">
+                        <p>Carregando reclamações...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fazer Reclamação -->
+        <div id="formSection" class="hidden">
+            <header class="header-container">
+                <h1>📝 Fazer uma Reclamação</h1>
+                <p class="subtitulo">Sua voz importa! Ajude-nos a melhorar nossa escola</p>
+            </header>
+
+            <div class="content-area">
+                <div class="form-container">
+                    <div class="form-card">
+                        <form id="complaintForm">
+                            <div class="form-group">
+                                <label for="studentName">Nome do Estudante:</label>
+                                <input type="text" id="studentName" required placeholder="Digite seu nome completo">
+                            </div>
+
+                        <div class="form-group">
+                                <label for="studentClass">Turma:</label>
+                               <select id="studentClass" required>
+                                <option value="Administração" selected>Administração</option>
+                                </select>
+                        </div>
+
+                            <div class="form-group">
+                                <label for="complaintType">Tipo de Reclamação:</label>
+                                <select id="complaintType" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="Ensino">Qualidade do Ensino</option>
+                                    <option value="Atendimento">Atendimento</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="complaintText">Descreva sua reclamação:</label>
+                                <textarea id="complaintText" required placeholder="Descreva detalhadamente sua reclamação ou sugestão..."></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                📤 Enviar Reclamação
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Enviando reclamação...</p>
+    </div>
+
+    <!-- Scripts Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+ 
+    <!-- Scripts do app -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
