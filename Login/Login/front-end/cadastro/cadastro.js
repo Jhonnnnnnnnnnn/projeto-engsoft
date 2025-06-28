@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+import Toastify from 'https://cdn.jsdelivr.net/npm/toastify-js/+esm';
 // Config do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAdRiK0hYONV-R65FQqzOZxfQHYjB9ke88",
@@ -15,7 +15,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Função de cadastro
 window.cadastrar = function (event) {
   event.preventDefault();
   const email = document.getElementById("email").value;
@@ -23,10 +22,30 @@ window.cadastrar = function (event) {
 
   createUserWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
-      alert("Cadastro realizado com sucesso!");
-      window.location.href = "../login/login.html";
+      Toastify({
+        text: "Cadastro realizado com sucesso! Você será redirecionado para a página de login.",
+        duration: 2000, 
+        gravity: "top",
+        position: "right", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right,rgb(60, 216, 99),rgb(60, 216, 99))",
+        },
+        callback: function() {
+          window.location.href = "../login/login.html";
+        }
+      }).showToast();
     })
     .catch((error) => {
-      alert("Erro no cadastro: " + error.message);
+      Toastify({
+        text: "Erro no cadastro: " + error.message,
+        duration: 5000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+          background: "linear-gradient(to right,rgb(233, 50, 65),rgb(233, 50, 65))",
+        },
+      }).showToast();
     });
 };

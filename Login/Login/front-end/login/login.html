@@ -6,6 +6,7 @@
   <title>Login</title>
   <link rel="stylesheet" href="login.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
   <div class="login-container">
@@ -28,6 +29,8 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import Toastify from 'https://cdn.jsdelivr.net/npm/toastify-js/+esm';
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -44,18 +47,38 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Login com email e senha
-window.login = function(event) {
+window.login = function (event) {
   event.preventDefault();
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
 
   signInWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
-      alert("Login realizado com sucesso!");
-      window.location.href = "../inicial/inicial.html";
+      Toastify({
+        text: "Login realizado com sucesso!",
+        duration: 2000, 
+        gravity: "top",
+        position: "right", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right,rgb(60, 216, 99),rgb(60, 216, 99))",
+        },
+        callback: function() {
+          window.location.href = "../inicial/inicial.html";
+        }
+      }).showToast();
     })
     .catch((error) => {
-      alert("Erro no login: " + error.message);
+      Toastify({
+        text: "Erro no login: " + error.message,
+        duration: 5000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+          background: "linear-gradient(to right,rgb(233, 50, 65),rgb(233, 50, 65))",
+        },
+      }).showToast();
     });
 };
 
@@ -64,14 +87,36 @@ window.loginComGoogle = function() {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {
-      alert("Login com Google realizado com sucesso!");
-      window.location.href = "../inicial/inicial.html";
+      Toastify({
+        text: "Login com Google realizado com sucesso!",
+        duration: 2000, 
+        gravity: "top",
+        position: "right", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right,rgb(60, 216, 99),rgb(60, 216, 99))",
+        },
+        callback: function() {
+          window.location.href = "../inicial/inicial.html";
+        }
+      }).showToast();
     })
     .catch((error) => {
-      alert("Erro no login com Google: " + error.message);
+      Toastify({
+        text: "Erro no login com Google: " + error.message,
+        duration: 5000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+          background: "linear-gradient(to right,rgb(233, 50, 65),rgb(233, 50, 65))",
+        },
+      }).showToast();
     });
 };
   </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="../login/login.html"></script>
   <!-- FIM DO SCRIPT -->
 </body>
 </html>

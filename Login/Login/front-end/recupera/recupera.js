@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import Toastify from 'https://cdn.jsdelivr.net/npm/toastify-js/+esm';
 
 // Sua configuração do Firebase
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -26,9 +27,27 @@ document.getElementById("btnRecuperar").addEventListener("click", () => {
 
   sendPasswordResetEmail(auth, email)
     .then(() => {
-      alert("E-mail de redefinição enviado com sucesso!");
+      Toastify({
+        text: "E-mail de redefinição enviado com sucesso!",
+        duration: 2000, 
+        gravity: "top",
+        position: "right", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right,rgb(60, 216, 99),rgb(60, 216, 99))",
+        },
+      }).showToast();
     })
     .catch((error) => {
-      alert("Erro ao enviar o e-mail: " + error.message);
+      Toastify({
+        text: "Erro ao enviar o e-mail: " + error.message,
+        duration: 5000,
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+          background: "linear-gradient(to right,rgb(233, 50, 65),rgb(233, 50, 65))",
+        },
+      }).showToast();
     });
 });
