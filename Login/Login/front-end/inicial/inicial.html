@@ -10,7 +10,7 @@
 <body>
     <nav class="sidebar">
         <img src="Logo2.png" alt="Logo da HypeCore" class="logo" />
-        <a href="#" id="vagasLink" class="active">📋 Ver Reclamações</a>
+        <a href="#" id="vagasLink" class="active">📋 Ver Comunicados</a>
         <a href="#" id="relatosLink">📝 Fazer Comunicados</a>
         <div class="qr-container">
         <h2 class="section-title">Acesso ao Whatsapp de Vagas</h2>
@@ -25,13 +25,13 @@
                 <div class="search-relatos-container">
                     <input type="text" id="search-input" placeholder="Pesquisar comunicados..." />
                 </div>
-                <p class="subtitulo">Confira as reclamações mais recentes atualizadas automaticamente</p>
+                <p class="subtitulo">Confira os comunicados mais recentes atualizadas automaticamente</p>
             </header>
 
             <div class="stats-container">
                 <div class="stat-card">
                     <div class="stat-number" id="totalComplaints">0</div>
-                    <div class="stat-label">Total de Reclamações</div>
+                    <div class="stat-label">Total de Comunicados</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="todayComplaints">0</div>
@@ -46,16 +46,16 @@
             <div class="content-area">
                 <div class="reclamacoes-container" id="reclamacoesContainer">
                     <div class="loading">
-                        <p>Carregando reclamações...</p>
+                        <p>Carregando comunicados...</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Fazer Reclamação -->
+        <!-- Fazer Comunicado -->
         <div id="formSection" class="hidden">
             <header class="header-container">
-                <h1>📝 Fazer uma Reclamação</h1>
+                <h1>📝 Fazer um Comunicado</h1>
                 <p class="subtitulo">Sua voz importa! Ajude-nos a melhorar nossa escola</p>
             </header>
 
@@ -76,7 +76,7 @@
                         </div>
 
                             <div class="form-group">
-                                <label for="complaintType">Tipo de Reclamação:</label>
+                                <label for="complaintType">Tipo de Comunicado:</label>
                                 <select id="complaintType" required>
                                     <option value="">Selecione o tipo</option>
                                     <option value="Ensino">Qualidade do Ensino</option>
@@ -86,12 +86,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="complaintText">Descreva sua reclamação:</label>
-                                <textarea id="complaintText" required placeholder="Descreva detalhadamente sua reclamação ou sugestão..."></textarea>
+                                <label for="complaintText">Descreva seu comunicado:</label>
+                                <textarea id="complaintText" required placeholder="Descreva detalhadamente seu comunicado ou sugestão..."></textarea>
                             </div>
 
                             <button type="submit" class="submit-btn" id="submitBtn">
-                                📤 Enviar Reclamação
+                                📤 Enviar Comunicado
                             </button>
                         </form>
                     </div>
@@ -103,7 +103,7 @@
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay hidden">
         <div class="loading-spinner"></div>
-        <p>Enviando reclamação...</p>
+        <p>Enviando Comunicado...</p>
     </div>
 
     <!-- Scripts Firebase -->
