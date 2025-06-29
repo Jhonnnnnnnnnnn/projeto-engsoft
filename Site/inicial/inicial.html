@@ -4,14 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Comunicados | HypeCore</title>
-    <link rel="stylesheet" href="tst.css" />
+    <link rel="stylesheet" href="inicial.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <nav class="sidebar">
+    <!-- Botão do Menu Mobile-->
+    <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button> 
+
+    <!-- Overlay para Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <nav class="sidebar" id="sidebar">
         <img src="Logo2.png" alt="Logo da HypeCore" class="logo" />
-        <a href="#" id="vagasLink" class="active">📋 Ver Comunicados</a>
-        <a href="#" id="relatosLink">📝 Fazer Comunicados</a>
+        <a href="#" id="vagasLink" class="active"> Ver Comunicados</a>
+        <a href="#" id="relatosLink"> Fazer Comunicados</a>
         <div class="qr-container">
         <h2 class="section-title">Acesso ao Whatsapp de Vagas</h2>
         <img src="qrcode2.png.jpeg" alt="QR Code">
@@ -21,7 +31,7 @@
         <!-- Visualizar Comunicados -->
         <div id="viewSection">
             <header class="header-container">
-                <h1>📋 Comunicados de Hoje</h1>
+                <h1> Comunicados de Hoje</h1>
                 <div class="search-relatos-container">
                     <input type="text" id="search-input" placeholder="Pesquisar comunicados..." />
                 </div>
@@ -55,7 +65,7 @@
         <!-- Fazer Comunicado -->
         <div id="formSection" class="hidden">
             <header class="header-container">
-                <h1>📝 Fazer um Comunicado</h1>
+                <h1> Fazer um Comunicado</h1>
                 <p class="subtitulo">Sua voz importa! Ajude-nos a melhorar nossa escola</p>
             </header>
 
@@ -91,7 +101,7 @@
                             </div>
 
                             <button type="submit" class="submit-btn" id="submitBtn">
-                                📤 Enviar Comunicado
+                                 Enviar Comunicado
                             </button>
                         </form>
                     </div>

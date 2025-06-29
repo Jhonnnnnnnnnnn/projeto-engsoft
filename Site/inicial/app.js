@@ -17,6 +17,9 @@ const elements = {
   totalComplaints: document.getElementById("totalComplaints"),
   todayComplaints: document.getElementById("todayComplaints"),
   resolvedComplaints: document.getElementById("resolvedComplaints"),
+  menuToggle: document.getElementById("menuToggle"),
+  sidebar: document.getElementById("sidebar"),
+  sidebarOverlay: document.getElementById("sidebarOverlay"),
 };
 
 // Event Listeners
@@ -30,11 +33,13 @@ function setupEventListeners() {
   elements.vagasLink.addEventListener("click", function (e) {
     e.preventDefault();
     showViewSection();
+    closeMobileMenu(); // Fecha o menu mobile após navegar
   });
 
   elements.relatosLink.addEventListener("click", function (e) {
     e.preventDefault();
     showFormSection();
+    closeMobileMenu(); // Fecha o menu mobile após navegar
   });
 
   // Pesquisa
@@ -44,6 +49,24 @@ function setupEventListeners() {
 
   // Formulário
   elements.complaintForm.addEventListener("submit", handleFormSubmit);
+
+  // Menu Mobile
+  elements.menuToggle.addEventListener("click", toggleMobileMenu);
+  elements.sidebarOverlay.addEventListener("click", closeMobileMenu);
+
+  // Fecha menu mobile ao redimensionar tela
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 768) {
+      closeMobileMenu();
+    }
+  });
+
+  // Fecha menu mobile com tecla ESC
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
 }
 
 // Inicialização da aplicação
@@ -584,4 +607,33 @@ function deleteComplaint(id) {
       showError("Erro ao excluir.");
       console.error(err);
     });
+}
+
+// Funções do Menu Mobile
+function toggleMobileMenu() {
+  const isOpen = elements.sidebar.classList.contains("open");
+  
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+function openMobileMenu() {
+  elements.sidebar.classList.add("open");
+  elements.sidebarOverlay.classList.add("show");
+  elements.menuToggle.classList.add("active");
+  
+  // Previne scroll do body quando menu está aberto
+  document.body.style.overflow = "hidden";
+}
+
+function closeMobileMenu() {
+  elements.sidebar.classList.remove("open");
+  elements.sidebarOverlay.classList.remove("show");
+  elements.menuToggle.classList.remove("active");
+  
+  // Restaura scroll do body
+  document.body.style.overflow = "";
 }

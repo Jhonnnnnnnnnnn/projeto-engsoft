@@ -14,6 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #0a2342;
+  padding: 20px;
 }
 
 .login-container {
@@ -92,6 +93,158 @@ button[type="submit"]:hover {
 .google-button img {
   width: 20px;
   height: 20px;
+}
+
+/* Media Queries para Responsividade Mobile */
+
+/* Tablets pequenos e celulares grandes (768px e menor) */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  .login-container {
+    padding: 40px 30px;
+    max-width: 100%;
+  }
+  
+  .login-container h1 {
+    font-size: 2.2rem;
+  }
+  
+  .login-container p {
+    font-size: 0.95rem;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  
+  button[type="submit"] {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .google-button {
+    padding: 11px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Celulares (480px e menor) */
+@media screen and (max-width: 480px) {
+  body {
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .login-container {
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 45, 100, 0.08);
+  }
+  
+  .login-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .login-container p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    gap: 15px;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  
+  button[type="submit"] {
+    padding: 12px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+  
+  .google-button {
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    gap: 8px;
+  }
+  
+  .google-button img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Celulares muito pequenos (360px e menor) */
+@media screen and (max-width: 360px) {
+  body {
+    padding: 8px;
+  }
+  
+  .login-container {
+    padding: 25px 20px;
+  }
+  
+  .login-container h1 {
+    font-size: 1.6rem;
+  }
+  
+  .login-container p {
+    font-size: 0.85rem;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+  
+  button[type="submit"] {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .google-button {
+    padding: 9px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape em celulares */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  body {
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .login-container {
+    padding: 20px 30px;
+  }
+  
+  .login-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+  
+  .login-container p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+  }
+  
+  form {
+    gap: 12px;
+  }
 }
 
 
